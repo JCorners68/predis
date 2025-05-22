@@ -35,6 +35,10 @@ public:
         size_t free_bytes = 0;
         double fragmentation_ratio = 0.0;
         size_t allocation_count = 0;
+        size_t peak_allocated_bytes = 0;
+        size_t total_allocations_ever = 0;
+        size_t total_deallocations_ever = 0;
+        size_t active_pools = 0;
     };
 
 public:
@@ -58,6 +62,15 @@ public:
     MemoryStats get_stats() const;
     bool is_out_of_memory() const;
     void defragment();
+    
+    // Advanced pool management
+    bool create_common_pools();  // Create standard sizes: 64B, 256B, 1KB, 4KB
+    size_t get_pool_count() const;
+    void print_pool_stats() const;
+    
+    // Memory leak detection
+    bool has_memory_leaks() const;
+    void print_allocation_report() const;
 
 private:
     struct Impl;

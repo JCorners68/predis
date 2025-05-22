@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document details the real-time machine learning model training and deployment system for cache performance optimization. This system enables continuous ML model training and seamless deployment without disrupting cache operations, representing a key innovation for Patent 3.
+This document details the novel real-time machine learning model training and deployment system for cache performance optimization. The system enables continuous ML model training and seamless model deployment without disrupting cache operations on the same GPU hardware that serves the cache itself, representing a groundbreaking innovation for Patent 3. This approach fundamentally transforms how machine learning models are updated in high-performance caching systems, eliminating traditional performance-disrupting update processes.
 
 ## System Architecture Diagram
 

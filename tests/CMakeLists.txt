@@ -74,10 +74,26 @@ target_include_directories(predis_integration_tests PRIVATE
     ${CUDA_INCLUDE_DIRS}
 )
 
+# GPU Integration Test
+add_executable(gpu_integration_test
+    gpu_integration_test.cpp
+)
+
+target_link_libraries(gpu_integration_test
+    predis_core
+    ${CUDA_LIBRARIES}
+)
+
+target_include_directories(gpu_integration_test PRIVATE
+    ${CMAKE_SOURCE_DIR}/src
+    ${CUDA_INCLUDE_DIRS}
+)
+
 # Register tests with CTest
 add_test(NAME CudaTest COMMAND cuda_test)
 add_test(NAME UnitTests COMMAND predis_unit_tests)
 add_test(NAME IntegrationTests COMMAND predis_integration_tests)
+add_test(NAME GpuIntegrationTest COMMAND gpu_integration_test)
 
 # Performance benchmarks
 add_executable(predis_benchmarks

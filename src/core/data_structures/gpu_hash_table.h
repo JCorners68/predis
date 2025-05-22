@@ -18,6 +18,7 @@
 
 #include <string>
 #include <memory>
+#include <vector>
 
 namespace predis {
 namespace core {

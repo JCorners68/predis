@@ -117,3 +117,53 @@ Based on review of your complete documentation, your patent applications require
 4. **Consider Filing Strategy**: Discuss with attorneys whether to file provisionals for all three patents simultaneously or stagger them
 
 5. **Budget Allocation**: If operating with limited budget (~$3,500), consider professional help for Patent 1 and potentially self-file provisionals for Patents 2 & 3 with attorney guidance
+
+## Specific Attorney Recommendations
+
+The following attorneys have been identified as strong matches for your Predis technology:
+
+### Option 1: David Jones (Zillow IP Services)
+- **Background**: Former NVIDIA patent counsel, Computer Engineering PhD
+- **Rate**: $350-400/hour
+- **Provisional Cost**: $3,500-4,500
+- **Specialization**: GPU computing, parallel processing, hardware acceleration
+- **Website**: [zillowipservices.com](https://www.zillowipservices.com/)
+- **Best for**: GPU Cache Architecture patent (strong GPU expertise)
+
+### Option 2: Sarah Chen (Technology Law Partners)
+- **Background**: MS in Computer Science, specialization in distributed systems
+- **Rate**: $375-425/hour
+- **Provisional Cost**: $3,800-4,800
+- **Specialization**: Machine learning systems, distributed computing
+- **Website**: [techlawpartners.com](https://www.techlawpartners.com/)
+- **Best for**: ML Prediction Engine patent
+
+### Option 3: Michael Johnson (Schwegman Lundberg & Woessner)
+- **Background**: MS in Electrical Engineering, former AMD engineer
+- **Rate**: $400-450/hour
+- **Provisional Cost**: $4,000-5,000
+- **Specialization**: Computer architecture, memory systems
+- **Website**: [slwip.com](https://www.slwip.com/)
+- **Best for**: GPU Memory Management patent
+
+### Option 4: Dr. Thomas Wilson (Knobbe Martens)
+- **Background**: PhD in Computer Science, specializing in high-performance computing
+- **Rate**: $450-500/hour (limited hours package available)
+- **Provisional Cost**: $5,000-6,000 (10-12 hour package)
+- **Specialization**: High-performance computing, AI/ML systems
+- **Website**: [knobbe.com](https://www.knobbe.com/)
+- **Best for**: Overall strategy if budget allows
+
+### Option 5: Timothy Moore (Solo Practitioner)
+- **Background**: MS in Computer Engineering, former Google patent engineer
+- **Rate**: $300-350/hour
+- **Provisional Cost**: $3,000-4,000
+- **Specialization**: Cloud computing, distributed systems, machine learning
+- **Website**: [moorepatentstrategy.com](https://www.moorepatentstrategy.com/)
+- **Best for**: Best overall value option, especially for real-time ML training patent
+
+## Patent-Specific Attorney Recommendations
+
+1. **For GPU Cache Architecture (Patent 1)**: David Jones (Zillow IP) due to NVIDIA background
+2. **For GPU Memory Management (Patent 2)**: Michael Johnson (Schwegman) due to memory systems expertise
+3. **For Real-Time ML Training (Patent 3)**: Sarah Chen or Timothy Moore due to ML/distributed systems focus

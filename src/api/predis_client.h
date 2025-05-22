@@ -25,12 +25,20 @@ namespace predis {
 namespace api {
 
 /**
- * @brief Main client interface for Predis GPU cache
+ * @brief Main client interface for Predis GPU cache with mock/real GPU switching
  * 
- * Provides Redis-compatible API with ML extensions
+ * Provides Redis-compatible API with ML extensions and seamless switching
+ * between mock and real GPU implementations for development and testing.
  */
 class PredisClient {
 public:
+    enum class Mode {
+        AUTO_DETECT,    // Automatically detect and choose best available mode
+        MOCK_ONLY,      // Force mock implementation for testing/development
+        REAL_GPU_ONLY,  // Force real GPU implementation
+        HYBRID          // Use both for performance comparison
+    };
+
     enum class ConsistencyLevel {
         STRONG,
         RELAXED
@@ -47,19 +55,35 @@ public:
     struct Stats {
         size_t total_keys = 0;
         double hit_ratio = 0.0;
-        size_t memory_usage_mb = 0;
+        double memory_usage_mb = 0.0;
         double prefetch_hit_ratio = 0.0;
-        size_t operations_per_second = 0;
+        double operations_per_second = 0.0;
+        double avg_latency_ms = 0.0;
+        double p95_latency_ms = 0.0;
+        
+        // Implementation mode tracking
+        bool using_real_gpu = false;
+        std::string implementation_mode;
+        
+        // Performance comparison data
+        double mock_ops_per_second = 0.0;
+        double real_gpu_ops_per_second = 0.0;
+        double performance_improvement_ratio = 0.0;
     };
 
 public:
     PredisClient();
     ~PredisClient();
 
-    // Connection management
-    bool connect(const std::string& host = "localhost", int port = 6379);
+    // Connection and mode management
+    bool connect(const std::string& host = "localhost", int port = 6379, Mode mode = Mode::AUTO_DETECT);
     void disconnect();
     bool is_connected() const;
+    
+    // Mode switching and configuration
+    bool switch_mode(Mode new_mode);
+    Mode get_current_mode() const;
+    bool is_using_real_gpu() const;
 
     // Basic cache operations
     bool get(const std::string& key, std::string& value);
@@ -85,7 +109,18 @@ public:
 
     // Statistics and monitoring
     Stats get_stats() const;
+    void reset_stats();
     void flush_all();
+    
+    // Performance testing and comparison
+    bool run_performance_comparison(size_t num_operations = 10000);
+    bool validate_consistency(size_t num_tests = 1000);
+    void print_performance_report() const;
+    
+    // Advanced GPU features (real GPU mode only)
+    bool configure_gpu_memory(size_t max_memory_mb = 0);  // 0 = auto-detect
+    bool defragment_gpu_memory();
+    void print_gpu_memory_stats() const;
 
 private:
     struct Impl;

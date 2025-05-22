@@ -15,7 +15,7 @@
 **So that** I can develop and test Predis reliably
 
 **Acceptance Criteria:**
-- [ ] WSL2 with Ubuntu 22.04 running stably
+- [ ] WSL2 with Ubuntu 24.04 running stably
 - [ ] Docker with NVIDIA container runtime configured
 - [ ] RTX 5080 accessible from containers (nvidia-smi works)
 - [ ] CUDA 12.x development environment installed

@@ -1,0 +1,800 @@
+{
+  "redis_results": {
+    "single_operations": {
+      "10B": {
+        "redis": {
+          "put": {
+            "avg_latency_ms": 0.11203230005776277,
+            "median_latency_ms": 0.10627700066834223,
+            "p95_latency_ms": 0.15953730217006523,
+            "p99_latency_ms": 0.4434561605739873,
+            "ops_per_second": 8925.9972301239
+          },
+          "get": {
+            "avg_latency_ms": 0.10529132989177015,
+            "median_latency_ms": 0.09736699939821847,
+            "p95_latency_ms": 0.1300368985539535,
+            "p99_latency_ms": 0.43531334878935013,
+            "ops_per_second": 9497.458157551135
+          }
+        },
+        "predis": {
+          "put": {
+            "avg_latency_ms": 0.002366570115555078,
+            "median_latency_ms": 0.001133501427830197,
+            "p95_latency_ms": 0.002887899609049782,
+            "p99_latency_ms": 0.08511944968631724,
+            "ops_per_second": 422552.4498205922
+          },
+          "get": {
+            "avg_latency_ms": 0.0011286599692539312,
+            "median_latency_ms": 0.0009904997568810359,
+            "p95_latency_ms": 0.0017978005416807719,
+            "p99_latency_ms": 0.006294101222010795,
+            "ops_per_second": 886006.4388223335
+          }
+        }
+      },
+      "100B": {
+        "redis": {
+          "put": {
+            "avg_latency_ms": 0.11246673988352995,
+            "median_latency_ms": 0.10787499923026189,
+            "p95_latency_ms": 0.1585704983881442,
+            "p99_latency_ms": 0.2989707887172699,
+            "ops_per_second": 8891.517625882954
+          },
+          "get": {
+            "avg_latency_ms": 0.10325586015824229,
+            "median_latency_ms": 0.10028600081568584,
+            "p95_latency_ms": 0.14850825045868987,
+            "p99_latency_ms": 0.22550191843038192,
+            "ops_per_second": 9684.680350998713
+          }
+        },
+        "predis": {
+          "put": {
+            "avg_latency_ms": 0.0015345998690463603,
+            "median_latency_ms": 0.0011795000318670645,
+            "p95_latency_ms": 0.0025748999178176746,
+            "p99_latency_ms": 0.018084551047650166,
+            "ops_per_second": 651635.6609761902
+          },
+          "get": {
+            "avg_latency_ms": 0.0011436698332545348,
+            "median_latency_ms": 0.0009925006452249363,
+            "p95_latency_ms": 0.001750549563439563,
+            "p99_latency_ms": 0.006222879856068175,
+            "ops_per_second": 874378.226060493
+          }
+        }
+      },
+      "1024B": {
+        "redis": {
+          "put": {
+            "avg_latency_ms": 0.1221778601029655,
+            "median_latency_ms": 0.11626749983406626,
+            "p95_latency_ms": 0.1582184006110765,
+            "p99_latency_ms": 0.3525299983084551,
+            "ops_per_second": 8184.788955685172
+          },
+          "get": {
+            "avg_latency_ms": 0.11626812985923607,
+            "median_latency_ms": 0.104761000329745,
+            "p95_latency_ms": 0.24991544814838562,
+            "p99_latency_ms": 0.36180554878228577,
+            "ops_per_second": 8600.809191742257
+          }
+        },
+        "predis": {
+          "put": {
+            "avg_latency_ms": 0.0017373901937389746,
+            "median_latency_ms": 0.00131050001073163,
+            "p95_latency_ms": 0.0031069013857631944,
+            "p99_latency_ms": 0.01777600060449913,
+            "ops_per_second": 575575.9435063554
+          },
+          "get": {
+            "avg_latency_ms": 0.001174889985122718,
+            "median_latency_ms": 0.0010154999472433701,
+            "p95_latency_ms": 0.0018447020920575596,
+            "p99_latency_ms": 0.008633881334390026,
+            "ops_per_second": 851143.5220852185
+          }
+        }
+      }
+    },
+    "batch_operations": {
+      "10_keys": {
+        "redis": {
+          "batch_put_ms": 1.1358599986124318,
+          "batch_get_ms": 0.2108469998347573,
+          "total_batch_time_ms": 1.346706998447189,
+          "batch_ops_per_second": 14851.04036962818
+        },
+        "predis": {
+          "batch_put_ms": 0.02273499922011979,
+          "batch_get_ms": 0.005959002010058612,
+          "total_batch_time_ms": 0.0286940012301784,
+          "batch_ops_per_second": 697009.7979561442
+        }
+      },
+      "50_keys": {
+        "redis": {
+          "batch_put_ms": 0.46370299969566986,
+          "batch_get_ms": 0.35093499900540337,
+          "total_batch_time_ms": 0.8146379987010732,
+          "batch_ops_per_second": 122753.91052154251
+        },
+        "predis": {
+          "batch_put_ms": 0.03685300180222839,
+          "batch_get_ms": 0.016794001567177474,
+          "total_batch_time_ms": 0.053647003369405866,
+          "batch_ops_per_second": 1864037.0145451329
+        }
+      },
+      "100_keys": {
+        "redis": {
+          "batch_put_ms": 0.6911169984959997,
+          "batch_get_ms": 0.5085010016045999,
+          "total_batch_time_ms": 1.1996180001005996,
+          "batch_ops_per_second": 166719.73910297116
+        },
+        "predis": {
+          "batch_put_ms": 0.06013200254528783,
+          "batch_get_ms": 0.02499600304872729,
+          "total_batch_time_ms": 0.08512800559401512,
+          "batch_ops_per_second": 2349403.097187806
+        }
+      },
+      "500_keys": {
+        "redis": {
+          "batch_put_ms": 2.254623999760952,
+          "batch_get_ms": 1.8886190009652637,
+          "total_batch_time_ms": 4.1432430007262155,
+          "batch_ops_per_second": 241356.8308266551
+        },
+        "predis": {
+          "batch_put_ms": 0.2437779985484667,
+          "batch_get_ms": 0.12674800018430687,
+          "total_batch_time_ms": 0.3705259987327736,
+          "batch_ops_per_second": 2698865.9457637905
+        }
+      },
+      "1000_keys": {
+        "redis": {
+          "batch_put_ms": 4.100223999557784,
+          "batch_get_ms": 3.3694070007186383,
+          "total_batch_time_ms": 7.469631000276422,
+          "batch_ops_per_second": 267750.84337177937
+        },
+        "predis": {
+          "batch_put_ms": 0.5362539995985571,
+          "batch_get_ms": 0.24259700148832053,
+          "total_batch_time_ms": 0.7788510010868777,
+          "batch_ops_per_second": 2567885.253031739
+        }
+      }
+    },
+    "concurrent_operations": {
+      "1_clients": {
+        "redis": {
+          "total_time_s": 0.01406765799765708,
+          "total_operations": 100,
+          "concurrent_ops_per_second": 7108.503776296997,
+          "avg_client_time_s": 0.013103158002195414
+        },
+        "predis": {
+          "total_time_s": 0.0003293779991508927,
+          "total_operations": 100,
+          "concurrent_ops_per_second": 303602.5486152419,
+          "avg_client_time_s": 0.00012582999988808297
+        }
+      },
+      "4_clients": {
+        "redis": {
+          "total_time_s": 0.04418447100033518,
+          "total_operations": 400,
+          "concurrent_ops_per_second": 9052.954373878678,
+          "avg_client_time_s": 0.041667025499918964
+        },
+        "predis": {
+          "total_time_s": 0.0009065339982043952,
+          "total_operations": 400,
+          "concurrent_ops_per_second": 441241.0354077117,
+          "avg_client_time_s": 0.00011480225020932266
+        }
+      },
+      "8_clients": {
+        "redis": {
+          "total_time_s": 0.10227399900031742,
+          "total_operations": 800,
+          "concurrent_ops_per_second": 7822.124956681484,
+          "avg_client_time_s": 0.0836886570009483
+        },
+        "predis": {
+          "total_time_s": 0.0015852639990043826,
+          "total_operations": 800,
+          "concurrent_ops_per_second": 504647.80661292764,
+          "avg_client_time_s": 0.0001131368740061589
+        }
+      },
+      "16_clients": {
+        "redis": {
+          "total_time_s": 0.14928163300282904,
+          "total_operations": 1600,
+          "concurrent_ops_per_second": 10717.996365766432,
+          "avg_client_time_s": 0.14040719175022787
+        },
+        "predis": {
+          "total_time_s": 0.0037225639971438795,
+          "total_operations": 1600,
+          "concurrent_ops_per_second": 429811.28094173607,
+          "avg_client_time_s": 0.00011221843737985182
+        }
+      }
+    },
+    "system_info": {
+      "redis_info": {
+        "version": "7.4.2",
+        "memory_used_mb": 1.5660247802734375,
+        "total_commands_processed": 2106920,
+        "connected_clients": 1
+      },
+      "predis_info": {
+        "version": "0.1.0-mock",
+        "server_info": {
+          "host": "localhost",
+          "port": 6380,
+          "connected": true
+        },
+        "gpu_info": {
+          "model": "RTX 5080 (Simulated)",
+          "vram_total_gb": 12.5,
+          "vram_used_gb": 0.0,
+          "vram_free_gb": 12.5,
+          "memory_efficiency": 1.0
+        },
+        "performance": {
+          "single_op_speedup": "12.0x vs Redis",
+          "batch_op_speedup": "28.0x vs Redis",
+          "target_single_ops_sec": 3300000,
+          "target_batch_ops_sec": 7700000,
+          "current_ops_per_sec": 103548,
+          "avg_latency_ms": 0.0097,
+          "p95_latency_ms": 0.0157,
+          "hit_ratio": 1.0,
+          "prefetch_hit_ratio": 0.0,
+          "cache_efficiency": 1.0
+        },
+        "memory": {
+          "total_keys": 800,
+          "memory_usage_mb": 0.28,
+          "memory_limit_mb": 12800,
+          "fragmentation_ratio": 0.05
+        },
+        "prefetching": {
+          "enabled": true,
+          "confidence_threshold": 0.7,
+          "max_prefetch_keys": 200,
+          "max_prefetch_size_mb": 100,
+          "prefetch_ttl": 30
+        },
+        "access_patterns": {
+          "total_accesses": 6832,
+          "unique_keys_accessed": 1200,
+          "recent_operations": [
+            [
+              1747901736.5037434,
+              "key_100b_000795",
+              "put"
+            ],
+            [
+              1747901736.5037444,
+              "key_100b_000795",
+              "get_hit"
+            ],
+            [
+              1747901736.5037453,
+              "key_100b_000796",
+              "put"
+            ],
+            [
+              1747901736.5037463,
+              "key_100b_000796",
+              "get_hit"
+            ],
+            [
+              1747901736.5037477,
+              "key_100b_000797",
+              "put"
+            ],
+            [
+              1747901736.5037484,
+              "key_100b_000797",
+              "get_hit"
+            ],
+            [
+              1747901736.5037496,
+              "key_100b_000798",
+              "put"
+            ],
+            [
+              1747901736.5037503,
+              "key_100b_000798",
+              "get_hit"
+            ],
+            [
+              1747901736.5037518,
+              "key_100b_000799",
+              "put"
+            ],
+            [
+              1747901736.5037525,
+              "key_100b_000799",
+              "get_hit"
+            ]
+          ]
+        }
+      },
+      "predis_stats": {
+        "operations_per_second": 103548.2210579149,
+        "avg_latency_ms": 0.009657336357721645,
+        "p95_latency_ms": 0.0156825628229297,
+        "hit_ratio": 1.0,
+        "prefetch_hit_ratio": 0.0,
+        "memory_usage_mb": 0.283050537109375,
+        "total_keys": 800,
+        "cache_efficiency": 0.9999778866767883
+      }
+    }
+  },
+  "predis_results": {
+    "single_operations": {
+      "10B": {
+        "redis": {
+          "put": {
+            "avg_latency_ms": 0.11203230005776277,
+            "median_latency_ms": 0.10627700066834223,
+            "p95_latency_ms": 0.15953730217006523,
+            "p99_latency_ms": 0.4434561605739873,
+            "ops_per_second": 8925.9972301239
+          },
+          "get": {
+            "avg_latency_ms": 0.10529132989177015,
+            "median_latency_ms": 0.09736699939821847,
+            "p95_latency_ms": 0.1300368985539535,
+            "p99_latency_ms": 0.43531334878935013,
+            "ops_per_second": 9497.458157551135
+          }
+        },
+        "predis": {
+          "put": {
+            "avg_latency_ms": 0.002366570115555078,
+            "median_latency_ms": 0.001133501427830197,
+            "p95_latency_ms": 0.002887899609049782,
+            "p99_latency_ms": 0.08511944968631724,
+            "ops_per_second": 422552.4498205922
+          },
+          "get": {
+            "avg_latency_ms": 0.0011286599692539312,
+            "median_latency_ms": 0.0009904997568810359,
+            "p95_latency_ms": 0.0017978005416807719,
+            "p99_latency_ms": 0.006294101222010795,
+            "ops_per_second": 886006.4388223335
+          }
+        }
+      },
+      "100B": {
+        "redis": {
+          "put": {
+            "avg_latency_ms": 0.11246673988352995,
+            "median_latency_ms": 0.10787499923026189,
+            "p95_latency_ms": 0.1585704983881442,
+            "p99_latency_ms": 0.2989707887172699,
+            "ops_per_second": 8891.517625882954
+          },
+          "get": {
+            "avg_latency_ms": 0.10325586015824229,
+            "median_latency_ms": 0.10028600081568584,
+            "p95_latency_ms": 0.14850825045868987,
+            "p99_latency_ms": 0.22550191843038192,
+            "ops_per_second": 9684.680350998713
+          }
+        },
+        "predis": {
+          "put": {
+            "avg_latency_ms": 0.0015345998690463603,
+            "median_latency_ms": 0.0011795000318670645,
+            "p95_latency_ms": 0.0025748999178176746,
+            "p99_latency_ms": 0.018084551047650166,
+            "ops_per_second": 651635.6609761902
+          },
+          "get": {
+            "avg_latency_ms": 0.0011436698332545348,
+            "median_latency_ms": 0.0009925006452249363,
+            "p95_latency_ms": 0.001750549563439563,
+            "p99_latency_ms": 0.006222879856068175,
+            "ops_per_second": 874378.226060493
+          }
+        }
+      },
+      "1024B": {
+        "redis": {
+          "put": {
+            "avg_latency_ms": 0.1221778601029655,
+            "median_latency_ms": 0.11626749983406626,
+            "p95_latency_ms": 0.1582184006110765,
+            "p99_latency_ms": 0.3525299983084551,
+            "ops_per_second": 8184.788955685172
+          },
+          "get": {
+            "avg_latency_ms": 0.11626812985923607,
+            "median_latency_ms": 0.104761000329745,
+            "p95_latency_ms": 0.24991544814838562,
+            "p99_latency_ms": 0.36180554878228577,
+            "ops_per_second": 8600.809191742257
+          }
+        },
+        "predis": {
+          "put": {
+            "avg_latency_ms": 0.0017373901937389746,
+            "median_latency_ms": 0.00131050001073163,
+            "p95_latency_ms": 0.0031069013857631944,
+            "p99_latency_ms": 0.01777600060449913,
+            "ops_per_second": 575575.9435063554
+          },
+          "get": {
+            "avg_latency_ms": 0.001174889985122718,
+            "median_latency_ms": 0.0010154999472433701,
+            "p95_latency_ms": 0.0018447020920575596,
+            "p99_latency_ms": 0.008633881334390026,
+            "ops_per_second": 851143.5220852185
+          }
+        }
+      }
+    },
+    "batch_operations": {
+      "10_keys": {
+        "redis": {
+          "batch_put_ms": 1.1358599986124318,
+          "batch_get_ms": 0.2108469998347573,
+          "total_batch_time_ms": 1.346706998447189,
+          "batch_ops_per_second": 14851.04036962818
+        },
+        "predis": {
+          "batch_put_ms": 0.02273499922011979,
+          "batch_get_ms": 0.005959002010058612,
+          "total_batch_time_ms": 0.0286940012301784,
+          "batch_ops_per_second": 697009.7979561442
+        }
+      },
+      "50_keys": {
+        "redis": {
+          "batch_put_ms": 0.46370299969566986,
+          "batch_get_ms": 0.35093499900540337,
+          "total_batch_time_ms": 0.8146379987010732,
+          "batch_ops_per_second": 122753.91052154251
+        },
+        "predis": {
+          "batch_put_ms": 0.03685300180222839,
+          "batch_get_ms": 0.016794001567177474,
+          "total_batch_time_ms": 0.053647003369405866,
+          "batch_ops_per_second": 1864037.0145451329
+        }
+      },
+      "100_keys": {
+        "redis": {
+          "batch_put_ms": 0.6911169984959997,
+          "batch_get_ms": 0.5085010016045999,
+          "total_batch_time_ms": 1.1996180001005996,
+          "batch_ops_per_second": 166719.73910297116
+        },
+        "predis": {
+          "batch_put_ms": 0.06013200254528783,
+          "batch_get_ms": 0.02499600304872729,
+          "total_batch_time_ms": 0.08512800559401512,
+          "batch_ops_per_second": 2349403.097187806
+        }
+      },
+      "500_keys": {
+        "redis": {
+          "batch_put_ms": 2.254623999760952,
+          "batch_get_ms": 1.8886190009652637,
+          "total_batch_time_ms": 4.1432430007262155,
+          "batch_ops_per_second": 241356.8308266551
+        },
+        "predis": {
+          "batch_put_ms": 0.2437779985484667,
+          "batch_get_ms": 0.12674800018430687,
+          "total_batch_time_ms": 0.3705259987327736,
+          "batch_ops_per_second": 2698865.9457637905
+        }
+      },
+      "1000_keys": {
+        "redis": {
+          "batch_put_ms": 4.100223999557784,
+          "batch_get_ms": 3.3694070007186383,
+          "total_batch_time_ms": 7.469631000276422,
+          "batch_ops_per_second": 267750.84337177937
+        },
+        "predis": {
+          "batch_put_ms": 0.5362539995985571,
+          "batch_get_ms": 0.24259700148832053,
+          "total_batch_time_ms": 0.7788510010868777,
+          "batch_ops_per_second": 2567885.253031739
+        }
+      }
+    },
+    "concurrent_operations": {
+      "1_clients": {
+        "redis": {
+          "total_time_s": 0.01406765799765708,
+          "total_operations": 100,
+          "concurrent_ops_per_second": 7108.503776296997,
+          "avg_client_time_s": 0.013103158002195414
+        },
+        "predis": {
+          "total_time_s": 0.0003293779991508927,
+          "total_operations": 100,
+          "concurrent_ops_per_second": 303602.5486152419,
+          "avg_client_time_s": 0.00012582999988808297
+        }
+      },
+      "4_clients": {
+        "redis": {
+          "total_time_s": 0.04418447100033518,
+          "total_operations": 400,
+          "concurrent_ops_per_second": 9052.954373878678,
+          "avg_client_time_s": 0.041667025499918964
+        },
+        "predis": {
+          "total_time_s": 0.0009065339982043952,
+          "total_operations": 400,
+          "concurrent_ops_per_second": 441241.0354077117,
+          "avg_client_time_s": 0.00011480225020932266
+        }
+      },
+      "8_clients": {
+        "redis": {
+          "total_time_s": 0.10227399900031742,
+          "total_operations": 800,
+          "concurrent_ops_per_second": 7822.124956681484,
+          "avg_client_time_s": 0.0836886570009483
+        },
+        "predis": {
+          "total_time_s": 0.0015852639990043826,
+          "total_operations": 800,
+          "concurrent_ops_per_second": 504647.80661292764,
+          "avg_client_time_s": 0.0001131368740061589
+        }
+      },
+      "16_clients": {
+        "redis": {
+          "total_time_s": 0.14928163300282904,
+          "total_operations": 1600,
+          "concurrent_ops_per_second": 10717.996365766432,
+          "avg_client_time_s": 0.14040719175022787
+        },
+        "predis": {
+          "total_time_s": 0.0037225639971438795,
+          "total_operations": 1600,
+          "concurrent_ops_per_second": 429811.28094173607,
+          "avg_client_time_s": 0.00011221843737985182
+        }
+      }
+    },
+    "system_info": {
+      "redis_info": {
+        "version": "7.4.2",
+        "memory_used_mb": 1.5660247802734375,
+        "total_commands_processed": 2106920,
+        "connected_clients": 1
+      },
+      "predis_info": {
+        "version": "0.1.0-mock",
+        "server_info": {
+          "host": "localhost",
+          "port": 6380,
+          "connected": true
+        },
+        "gpu_info": {
+          "model": "RTX 5080 (Simulated)",
+          "vram_total_gb": 12.5,
+          "vram_used_gb": 0.0,
+          "vram_free_gb": 12.5,
+          "memory_efficiency": 1.0
+        },
+        "performance": {
+          "single_op_speedup": "12.0x vs Redis",
+          "batch_op_speedup": "28.0x vs Redis",
+          "target_single_ops_sec": 3300000,
+          "target_batch_ops_sec": 7700000,
+          "current_ops_per_sec": 103548,
+          "avg_latency_ms": 0.0097,
+          "p95_latency_ms": 0.0157,
+          "hit_ratio": 1.0,
+          "prefetch_hit_ratio": 0.0,
+          "cache_efficiency": 1.0
+        },
+        "memory": {
+          "total_keys": 800,
+          "memory_usage_mb": 0.28,
+          "memory_limit_mb": 12800,
+          "fragmentation_ratio": 0.05
+        },
+        "prefetching": {
+          "enabled": true,
+          "confidence_threshold": 0.7,
+          "max_prefetch_keys": 200,
+          "max_prefetch_size_mb": 100,
+          "prefetch_ttl": 30
+        },
+        "access_patterns": {
+          "total_accesses": 6832,
+          "unique_keys_accessed": 1200,
+          "recent_operations": [
+            [
+              1747901736.5037434,
+              "key_100b_000795",
+              "put"
+            ],
+            [
+              1747901736.5037444,
+              "key_100b_000795",
+              "get_hit"
+            ],
+            [
+              1747901736.5037453,
+              "key_100b_000796",
+              "put"
+            ],
+            [
+              1747901736.5037463,
+              "key_100b_000796",
+              "get_hit"
+            ],
+            [
+              1747901736.5037477,
+              "key_100b_000797",
+              "put"
+            ],
+            [
+              1747901736.5037484,
+              "key_100b_000797",
+              "get_hit"
+            ],
+            [
+              1747901736.5037496,
+              "key_100b_000798",
+              "put"
+            ],
+            [
+              1747901736.5037503,
+              "key_100b_000798",
+              "get_hit"
+            ],
+            [
+              1747901736.5037518,
+              "key_100b_000799",
+              "put"
+            ],
+            [
+              1747901736.5037525,
+              "key_100b_000799",
+              "get_hit"
+            ]
+          ]
+        }
+      },
+      "predis_stats": {
+        "operations_per_second": 103548.2210579149,
+        "avg_latency_ms": 0.009657336357721645,
+        "p95_latency_ms": 0.0156825628229297,
+        "hit_ratio": 1.0,
+        "prefetch_hit_ratio": 0.0,
+        "memory_usage_mb": 0.283050537109375,
+        "total_keys": 800,
+        "cache_efficiency": 0.9999778866767883
+      }
+    }
+  },
+  "performance_comparison": {
+    "single_operation_improvements": {
+      "10B": {
+        "get_speedup": 93.28879623627478,
+        "put_speedup": 47.33952284844332,
+        "get_latency_reduction": 98.92805991679079,
+        "put_latency_reduction": 97.88760017036614
+      },
+      "100B": {
+        "get_speedup": 90.28467583551424,
+        "put_speedup": 73.2873383818413,
+        "get_latency_reduction": 98.89239232378499,
+        "put_latency_reduction": 98.63550782156966
+      },
+      "1024B": {
+        "get_speedup": 98.96086555465175,
+        "put_speedup": 70.32263710435186,
+        "get_latency_reduction": 98.98949954166706,
+        "put_latency_reduction": 98.57798279305695
+      }
+    },
+    "batch_operation_improvements": {
+      "10_keys": {
+        "throughput_speedup": 46.93339864469004,
+        "latency_reduction": 97.8693211468223
+      },
+      "50_keys": {
+        "throughput_speedup": 15.185153830337702,
+        "latency_reduction": 93.41462054864307
+      },
+      "100_keys": {
+        "throughput_speedup": 14.091931224392953,
+        "latency_reduction": 92.90374055850477
+      },
+      "500_keys": {
+        "throughput_speedup": 11.182057439684163,
+        "latency_reduction": 91.05710192069766
+      },
+      "1000_keys": {
+        "throughput_speedup": 9.590577645599272,
+        "latency_reduction": 89.57309937990169
+      }
+    },
+    "concurrent_operation_improvements": {
+      "1_clients": {
+        "concurrent_speedup": 42.7097682113628,
+        "time_reduction": 97.65861524920673
+      },
+      "4_clients": {
+        "concurrent_speedup": 48.74000433282477,
+        "time_reduction": 97.94829726897146
+      },
+      "8_clients": {
+        "concurrent_speedup": 64.51543658630368,
+        "time_reduction": 98.44998336380739
+      },
+      "16_clients": {
+        "concurrent_speedup": 40.10183118876256,
+        "time_reduction": 97.50634828795494
+      }
+    },
+    "summary": {
+      "avg_single_operation_speedup": 94.17811254214692,
+      "max_single_operation_speedup": 98.96086555465175,
+      "avg_batch_operation_speedup": 19.396623756940826,
+      "max_batch_operation_speedup": 46.93339864469004,
+      "performance_target_achievement": {
+        "single_ops_target_10x": true,
+        "batch_ops_target_25x": false,
+        "overall_target_range_10_50x": true
+      }
+    }
+  },
+  "test_config": {
+    "redis_host": "localhost",
+    "redis_port": 6380,
+    "test_key_count": 1000,
+    "single_op_iterations": 100,
+    "batch_sizes": [
+      10,
+      50,
+      100,
+      500,
+      1000
+    ],
+    "concurrent_clients": [
+      1,
+      4,
+      8,
+      16
+    ],
+    "data_size_variants": [
+      10,
+      100,
+      1024
+    ]
+  },
+  "timestamp": "2025-05-22 01:15:36"
+}
