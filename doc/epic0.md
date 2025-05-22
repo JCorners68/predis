@@ -123,7 +123,7 @@
 - [ ] Container startup scripts and documentation
 
 **Technical Notes:**
-- Base on nvidia/cuda:12.2-devel-ubuntu22.04
+- Base on nvidia/cuda:12.8-devel-ubuntu22.04
 - Include development tools (gdb, valgrind, etc.)
 - Configure non-root user for development
 - Set up shell environment and development aliases

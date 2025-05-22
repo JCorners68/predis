@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  predis-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: predis-dev
+    hostname: predis-dev
+    volumes:
+      # Source code mount
+      - .:/workspace:cached
+      # Build artifacts (persistent across container restarts)
+      - predis-build:/workspace/build
+      # Logs directory
+      - predis-logs:/workspace/logs
+      # GPU driver cache
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    environment:
+      - DISPLAY=${DISPLAY:-:0}
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    ports:
+      - "6379:6379"    # Predis cache port
+      - "8080:8080"    # API/monitoring port
+      - "9090:9090"    # Development tools port
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    stdin_open: true
+    tty: true
+    working_dir: /workspace
+    command: /bin/bash
+
+  redis-benchmark:
+    image: redis:7-alpine
+    container_name: redis-benchmark
+    hostname: redis-benchmark
+    ports:
+      - "6380:6379"    # Redis on different port for comparison
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    profiles:
+      - benchmark
+
+  monitoring:
+    image: prom/prometheus:latest
+    container_name: predis-monitoring
+    ports:
+      - "9091:9090"
+    volumes:
+      - ./dev_scripts/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    profiles:
+      - monitoring
+
+volumes:
+  predis-build:
+    driver: local
+  predis-logs:
+    driver: local
+  redis-data:
+    driver: local
+
+networks:
+  default:
+    name: predis-dev-network

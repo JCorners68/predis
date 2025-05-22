@@ -1,0 +1,70 @@
+# Development Dockerfile for Predis GPU-accelerated cache
+FROM nvidia/cuda:12.8.0-cudnn-devel-ubuntu24.04
+
+# Prevent interactive prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
+    git \
+    curl \
+    wget \
+    vim \
+    gdb \
+    valgrind \
+    htop \
+    tree \
+    python3 \
+    python3-pip \
+    python3-dev \
+    pkg-config \
+    software-properties-common \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install modern C++ compiler and tools
+RUN apt-get update && apt-get install -y \
+    gcc-11 \
+    g++-11 \
+    clang-14 \
+    clang-format-14 \
+    && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 60 \
+    && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 60 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies for ML components
+COPY requirements.txt /tmp/requirements.txt
+RUN pip3 install --no-cache-dir --break-system-packages -r /tmp/requirements.txt
+
+# Create non-root development user
+ARG USERNAME=developer
+ARG USER_UID=1001
+ARG USER_GID=$USER_UID
+
+RUN groupadd --gid $USER_GID $USERNAME \
+    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
+    && apt-get update \
+    && apt-get install -y sudo \
+    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
+    && chmod 0440 /etc/sudoers.d/$USERNAME \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set up development environment
+USER $USERNAME
+WORKDIR /workspace
+
+# Configure shell environment
+RUN echo 'alias ll="ls -la"' >> ~/.bashrc \
+    && echo 'alias la="ls -A"' >> ~/.bashrc \
+    && echo 'alias l="ls -CF"' >> ~/.bashrc \
+    && echo 'export PS1="\[\e[32m\]\u@predis-dev:\[\e[34m\]\w\[\e[0m\]\$ "' >> ~/.bashrc
+
+# Set up development directories
+RUN mkdir -p /workspace/build \
+    && mkdir -p /workspace/logs
+
+# Expose ports for development services
+EXPOSE 6379 8080 9090
+
+CMD ["/bin/bash"]

@@ -1,0 +1,221 @@
+# CLAUDE.md - Claude Code guidance file (local only)
+CLAUDE.md
+
+# Build directories and artifacts
+build/
+build-*/
+dist/
+out/
+bin/
+lib/
+*.egg-info/
+install_manifest.txt
+
+# C++ compiled files
+*.o
+*.obj
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.lib
+*.a
+*.la
+*.lo
+*.slo
+*.pdb
+*.ilk
+*.exp
+*.gch
+*.pch
+
+# CUDA compilation artifacts
+*.fatbin
+*.cubin
+*.ptx
+*.sass
+*.compute_*
+
+# Python cache and artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyw
+.Python
+*.egg
+*.egg-info/
+pip-log.txt
+pip-wheel-metadata/
+.installed.cfg
+*.manifest
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+.env
+.venv
+
+# IDE and editor files
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+*.sublime-project
+*.sublime-workspace
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+
+# Make
+Makefile
+*.make
+*.mk
+
+# Autotools
+Makefile.in
+aclocal.m4
+compile
+configure
+depcomp
+install-sh
+ltmain.sh
+missing
+*.m4
+
+# Test artifacts and coverage
+*.gcov
+*.gcda
+*.gcno
+coverage.xml
+htmlcov/
+.coverage
+.pytest_cache/
+.tox/
+.nox/
+test-results/
+*.cover
+*.py,cover
+.hypothesis/
+
+# Profiling and debugging
+*.prof
+*.trace
+*.perf
+callgrind.out.*
+massif.out.*
+vgcore.*
+core.*
+
+# Log files
+*.log
+logs/
+
+# GPU profiling artifacts
+*.nvprof
+*.nvvp
+*.qdrep
+*.qdstrm
+profile_*.txt
+
+# Model files (large binaries)
+*.pth
+*.pkl
+*.h5
+*.onnx
+*.pb
+*.tflite
+*.ckpt
+models/*.bin
+models/*.safetensors
+
+# Data files and datasets
+data/models/
+data/benchmarks/
+data/test_data/
+data/cache/
+datasets/
+*.parquet
+*.arrow
+
+# Docker artifacts
+.volumes/
+docker-compose.override.yml
+.dockerignore
+
+# Package managers
+node_modules/
+.npm
+.yarn/
+Pipfile.lock
+poetry.lock
+conda-meta/
+.conda/
+
+# OS generated files
+.DS_Store?
+ehthumbs.db
+Icon?
+Thumbs.db
+*.lnk
+
+# Temporary and backup files
+tmp/
+temp/
+*.tmp
+*.temp
+*.bak
+*.backup
+*~
+*.orig
+*.rej
+
+# Documentation build
+docs/_build/
+site/
+.readthedocs.yml
+
+# Configuration files with secrets
+.env.local
+.env.production
+config/local.yaml
+config/secrets.yaml
+*.key
+*.pem
+*.p12
+*.crt
+
+# Runtime artifacts
+*.pid
+*.sock
+*.port
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# CUDA specific
+cuda-gdb-*
+*.i
+*.ii
+*.gpu
+*.cudafe*
+*.stub.c
+link.stub

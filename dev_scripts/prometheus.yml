@@ -1,0 +1,16 @@
+# Prometheus configuration for Predis monitoring
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'predis'
+    static_configs:
+      - targets: ['predis-dev:8080']
+    scrape_interval: 5s
+    metrics_path: '/metrics'
+
+  - job_name: 'redis-benchmark'
+    static_configs:
+      - targets: ['redis-benchmark:6379']
+    scrape_interval: 10s
