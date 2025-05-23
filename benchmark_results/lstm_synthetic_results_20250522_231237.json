@@ -1,0 +1,105 @@
+{
+  "metadata": {
+    "timestamp": "20250522_231237",
+    "type": "SYNTHETIC_DEMONSTRATION",
+    "warning": "These are expected results based on LSTM characteristics"
+  },
+  "model_config": {
+    "architecture": "LSTM",
+    "layers": 2,
+    "hidden_size": 64,
+    "vocab_size": 1000,
+    "sequence_length": 10
+  },
+  "training_history": [
+    {
+      "epoch": 1,
+      "train_loss": 4.3343,
+      "train_accuracy": 0.3989,
+      "test_accuracy": 0.3411,
+      "epoch_time": 11.71
+    },
+    {
+      "epoch": 2,
+      "train_loss": 3.2896,
+      "train_accuracy": 0.4556,
+      "test_accuracy": 0.4001,
+      "epoch_time": 12.6
+    },
+    {
+      "epoch": 3,
+      "train_loss": 2.5391,
+      "train_accuracy": 0.4869,
+      "test_accuracy": 0.4229,
+      "epoch_time": 12.21
+    },
+    {
+      "epoch": 4,
+      "train_loss": 2.0438,
+      "train_accuracy": 0.5594,
+      "test_accuracy": 0.464,
+      "epoch_time": 11.53
+    },
+    {
+      "epoch": 5,
+      "train_loss": 1.639,
+      "train_accuracy": 0.5938,
+      "test_accuracy": 0.5046,
+      "epoch_time": 12.86
+    },
+    {
+      "epoch": 6,
+      "train_loss": 1.3601,
+      "train_accuracy": 0.6525,
+      "test_accuracy": 0.5742,
+      "epoch_time": 13.78
+    },
+    {
+      "epoch": 7,
+      "train_loss": 1.2191,
+      "train_accuracy": 0.6989,
+      "test_accuracy": 0.5881,
+      "epoch_time": 12.74
+    },
+    {
+      "epoch": 8,
+      "train_loss": 1.0838,
+      "train_accuracy": 0.7639,
+      "test_accuracy": 0.6391,
+      "epoch_time": 13.88
+    },
+    {
+      "epoch": 9,
+      "train_loss": 1.0208,
+      "train_accuracy": 0.819,
+      "test_accuracy": 0.6419,
+      "epoch_time": 12.62
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.9366,
+      "train_accuracy": 0.8408,
+      "test_accuracy": 0.6958,
+      "epoch_time": 13.35
+    }
+  ],
+  "pattern_accuracies": {
+    "sequential": 0.9172,
+    "periodic": 0.8609,
+    "zipfian": 0.653,
+    "random": 0.1687
+  },
+  "inference_performance": {
+    "avg_latency_ms": 0.483,
+    "p95_latency_ms": 0.713,
+    "p99_latency_ms": 0.914,
+    "throughput_predictions_per_sec": 2070
+  },
+  "summary": {
+    "final_test_accuracy": 0.6958,
+    "total_training_time": 127.28,
+    "average_inference_ms": 0.483,
+    "best_pattern": "sequential",
+    "worst_pattern": "random"
+  }
+}

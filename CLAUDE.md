@@ -6,6 +6,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - dont forget to make the file executable
 - do not create duplicate files when troubleshooting.  rename the file to .bak so it is not overwritten
 
+### CRITICAL: Fabricated Data and Results Policy
+- **NEVER create documents containing fabricated metrics, benchmarks, or results without clearly labeling them as SIMULATED, MOCK, or EXAMPLE data**
+- When creating test data, mockups, or examples, ALWAYS include clear headers like:
+  - "SIMULATED DATA - NOT ACTUAL RESULTS"
+  - "MOCK METRICS FOR TESTING"
+  - "EXAMPLE OUTPUT - NOT FROM REAL EXECUTION"
+- If generating placeholder metrics for framework development:
+  - Use obviously fake values (e.g., 99.99%, 12345)
+  - Include "TODO: Replace with actual measurements" comments
+  - Name files with prefixes like `mock_`, `simulated_`, or `example_`
+- When presenting any numerical results, specify their source:
+  - "From actual benchmark run on [date]"
+  - "Simulated data for framework testing"
+  - "Targets from requirements document"
+- This is critical for maintaining trust and preventing decisions based on false data
+
 ### Search and Navigation Efficiency
 - ALWAYS use ripgrep (rg) instead of grep for searching code - it's faster and more efficient
   - Use `rg "pattern"` for basic searches
@@ -38,7 +54,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Task Management and Documentation
 - Use TodoWrite tool for multi-step tasks (3+ steps or complex workflows)
 - Mark todos as completed immediately after finishing tasks
-- Update progress in doc/completed/epic0_done.md after major milestones
+- **CRITICAL**: Update progress in doc/completed/epic*_done.md files immediately upon story completion
+  - Update story points (e.g., "8/8 points" for completed stories)
+  - Update epic progress percentage (e.g., "55/55 points completed (100%)")
+  - Change status from "NOT STARTED" or "IN PROGRESS" to "COMPLETED"
+  - Add completion date and summary of achievements
 - Keep CLAUDE.md updated with new patterns and learnings
 - Document architecture decisions and performance measurements
 
@@ -48,6 +68,32 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Compare against Redis baseline when evaluating cache performance
 - Log memory usage, hit rates, and operations per second
 - Validate performance claims with statistical significance
+
+### Performance Testing Procedure 
+1. **Benchmark Data Collection**:
+   - Run benchmarks using existing tools in src/benchmarks/
+   - Save results to benchmark_results/ directory with timestamp
+   - Use JSON format for structured data storage
+   - Collect metrics: latency (avg, median, p95, p99), throughput (ops/sec), speedup factor
+
+2. **HTML Report Generation**:
+   - Use professional report generator from Epic 2: src/benchmarks/professional_report_generator.cpp
+   - Generate HTML reports that match the actual benchmark JSON data
+   - Store reports in doc/results/ directory
+   - Include charts for visual representation of performance gains
+
+3. **Performance Validation Steps**:
+   - Compare baseline (Redis) vs optimized (Predis) performance
+   - Calculate improvement factors for each operation type
+   - Verify statistical significance (p < 0.01)
+   - Document any performance gaps (e.g., PUT vs GET disparities)
+   - Track progress against Epic goals (10x, 25x, 50x targets)
+
+4. **Documentation Updates**:
+   - Update doc\resultswith performance results
+   - Include actual numbers from benchmark JSON files
+   - Reference specific improvements and optimizations made
+   - Track story point completion and remaining work
 
 ### Error Handling and Debugging
 - Check return values from CUDA operations and log errors with cudaGetErrorString

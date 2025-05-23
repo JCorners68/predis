@@ -60,6 +60,7 @@ target_include_directories(predis_unit_tests PRIVATE
 add_executable(predis_integration_tests
     integration/full_system_tests.cpp
     integration/performance_tests.cpp
+    integration/prefetch_integration_test.cpp
 )
 
 target_link_libraries(predis_integration_tests
@@ -89,15 +90,37 @@ target_include_directories(gpu_integration_test PRIVATE
     ${CUDA_INCLUDE_DIRS}
 )
 
+# Machine Learning tests
+add_executable(predis_ml_tests
+    ml/model_tests.cpp
+    ml/feature_engineering_test.cpp
+    ml/adaptive_learning_test.cpp
+    ml/ds_metrics_test.cpp
+)
+
+target_link_libraries(predis_ml_tests
+    predis_core
+    gtest_main
+    gtest
+    ${CUDA_LIBRARIES}
+)
+
+target_include_directories(predis_ml_tests PRIVATE
+    ${CMAKE_SOURCE_DIR}/src
+    ${CUDA_INCLUDE_DIRS}
+)
+
 # Register tests with CTest
 add_test(NAME CudaTest COMMAND cuda_test)
 add_test(NAME UnitTests COMMAND predis_unit_tests)
 add_test(NAME IntegrationTests COMMAND predis_integration_tests)
 add_test(NAME GpuIntegrationTest COMMAND gpu_integration_test)
+add_test(NAME MLTests COMMAND predis_ml_tests)
 
 # Performance benchmarks
 add_executable(predis_benchmarks
     performance/benchmark_suite.cpp
+    performance/ml_performance_test.cpp
 )
 
 target_link_libraries(predis_benchmarks

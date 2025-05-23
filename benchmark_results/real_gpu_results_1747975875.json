@@ -1,0 +1,44 @@
+{
+  "timestamp": 1747975857,
+  "gpu": "NVIDIA GeForce RTX 5080",
+  "table_size": 10485760,
+  "num_operations": 1000000,
+  "results": {
+    "gpu": [
+      {
+        "operation": "PUT",
+        "ops_per_second": 2592285250.00,
+        "latency_us": 0.000,
+        "success_rate": 200.0
+      },
+      {
+        "operation": "GET",
+        "ops_per_second": 8123213000.00,
+        "latency_us": 0.000,
+        "success_rate": 51.6
+      },
+      {
+        "operation": "DELETE",
+        "ops_per_second": 8561644000.00,
+        "latency_us": 0.000,
+        "success_rate": 25.0
+      }
+    ],
+    "cpu": [
+      {
+        "operation": "CPU_PUT",
+        "ops_per_second": 11854240.26,
+        "latency_us": 0.084
+      },
+      {
+        "operation": "CPU_GET",
+        "ops_per_second": 29069767.44,
+        "latency_us": 0.034
+      }
+    ]
+  },
+  "speedup": {
+    "put": 218.7,
+    "get": 279.4
+  }
+}

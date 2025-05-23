@@ -28,10 +28,29 @@ add_library(predis_core STATIC
     
     # Predictive Prefetching Engine
     ppe/prefetch_coordinator.cpp
+    ppe/prefetch_monitor.cpp
     ppe/data_ingestor.cpp
     ppe/feature_generator.cpp
     ppe/prefetch_strategist.cpp
     ppe/prefetch_executor.cpp
+    
+    # Machine Learning components
+    ml/feature_engineering.cpp
+    ml/inference_engine.cpp
+    ml/models/lstm_model.cpp
+    ml/models/xgboost_model.cpp
+    ml/models/ensemble_model.cpp
+    ml/models/model_factory.cpp
+    ml/adaptive_learning_system.cpp
+    ml/model_performance_monitor.cpp
+    
+    # Benchmarks
+    benchmarks/ml_performance_validator.cpp
+    benchmarks/ds_metrics_suite.cpp
+    benchmarks/write_performance_profiler.cpp
+    
+    # Dashboard
+    dashboard/ml_performance_dashboard.cpp
     
     # Utilities
     utils/config_loader.cpp
@@ -75,8 +94,19 @@ target_link_libraries(arch_validation_test
     Threads::Threads
 )
 
+# DS Metrics Benchmark executable
+add_executable(ds_metrics_benchmark
+    benchmarks/ds_metrics_benchmark.cpp
+)
+
+target_link_libraries(ds_metrics_benchmark
+    predis_core
+    ${CUDA_LIBRARIES}
+    Threads::Threads
+)
+
 # Set output directories
-set_target_properties(predis_server arch_validation_test
+set_target_properties(predis_server arch_validation_test ds_metrics_benchmark
     PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 )
