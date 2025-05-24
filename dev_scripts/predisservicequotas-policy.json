@@ -1,0 +1,33 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ServiceQuotasManagement",
+            "Effect": "Allow",
+            "Action": [
+                "servicequotas:GetServiceQuota",
+                "servicequotas:ListServiceQuotas",
+                "servicequotas:GetRequestedServiceQuotaChange",
+                "servicequotas:RequestServiceQuotaIncrease",
+                "servicequotas:ListRequestedServiceQuotaChangeHistory",
+                "servicequotas:ListServices"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "BillingAndCostAccess",
+            "Effect": "Allow",
+            "Action": [
+                "ce:GetCostAndUsage",
+                "ce:GetUsageReport",
+                "ce:GetDimensionValues",
+                "ce:GetMetrics",
+                "budgets:CreateBudget",
+                "budgets:UpdateBudget",
+                "budgets:ViewBudget",
+                "budgets:DescribeBudgets"
+            ],
+            "Resource": "*"
+        }
+    ]
+}

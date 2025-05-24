@@ -1,0 +1,60 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "CloudFormationManagement",
+            "Effect": "Allow",
+            "Action": [
+                "cloudformation:CreateStack",
+                "cloudformation:UpdateStack",
+                "cloudformation:DeleteStack",
+                "cloudformation:DescribeStacks",
+                "cloudformation:DescribeStackEvents",
+                "cloudformation:DescribeStackResources",
+                "cloudformation:DescribeStackResource",
+                "cloudformation:ListStacks",
+                "cloudformation:GetTemplate",
+                "cloudformation:ValidateTemplate",
+                "cloudformation:EstimateTemplateCost",
+                "cloudformation:CreateChangeSet",
+                "cloudformation:DescribeChangeSet",
+                "cloudformation:ExecuteChangeSet"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringLike": {
+                    "cloudformation:StackName": "predis-*"
+                }
+            }
+        },
+        {
+            "Sid": "AutoScalingManagement",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:CreateAutoScalingGroup",
+                "autoscaling:DeleteAutoScalingGroup",
+                "autoscaling:DescribeAutoScalingGroups",
+                "autoscaling:UpdateAutoScalingGroup",
+                "autoscaling:CreateLaunchTemplate",
+                "autoscaling:DeleteLaunchTemplate",
+                "autoscaling:DescribeLaunchTemplates",
+                "autoscaling:CreateOrUpdateTags",
+                "autoscaling:DeleteTags"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "LaunchTemplateManagement",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateLaunchTemplate",
+                "ec2:DeleteLaunchTemplate",
+                "ec2:DescribeLaunchTemplates",
+                "ec2:DescribeLaunchTemplateVersions",
+                "ec2:ModifyLaunchTemplate",
+                "ec2:CreateLaunchTemplateVersion"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
