@@ -1,7 +1,11 @@
+# Predis GPU Cache - Comprehensive .gitignore
+
 # CLAUDE.md - Claude Code guidance file (local only)
 CLAUDE.md
 
-# Build directories and artifacts
+# ====================
+# BUILD DIRECTORIES & ARTIFACTS
+# ====================
 build/
 build-*/
 dist/
@@ -10,69 +14,6 @@ bin/
 lib/
 *.egg-info/
 install_manifest.txt
-
-# C++ compiled files
-*.o
-*.obj
-*.so
-*.so.*
-*.dylib
-*.dll
-*.exe
-*.lib
-*.a
-*.la
-*.lo
-*.slo
-*.pdb
-*.ilk
-*.exp
-*.gch
-*.pch
-
-# CUDA compilation artifacts
-*.fatbin
-*.cubin
-*.ptx
-*.sass
-*.compute_*
-
-# Python cache and artifacts
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.pyw
-.Python
-*.egg
-*.egg-info/
-pip-log.txt
-pip-wheel-metadata/
-.installed.cfg
-*.manifest
-MANIFEST
-
-# Virtual environments
-venv/
-env/
-ENV/
-.env
-.venv
-
-# IDE and editor files
-.vscode/
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.idea/
-*.swp
-*.swo
-*~
-.DS_Store
-Thumbs.db
-*.sublime-project
-*.sublime-workspace
 
 # CMake
 CMakeCache.txt
@@ -100,7 +41,136 @@ ltmain.sh
 missing
 *.m4
 
-# Test artifacts and coverage
+# ====================
+# COMPILED FILES & BINARIES
+# ====================
+# C++ compiled files
+*.o
+*.obj
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.lib
+*.a
+*.la
+*.lo
+*.slo
+*.pdb
+*.ilk
+*.exp
+*.gch
+*.pch
+
+# GPU benchmark executables (Predis specific)
+comprehensive_gpu_benchmark
+real_gpu_benchmark
+epic2_benchmark_simple
+gpu_performance_test
+*_test
+*_benchmark
+
+# CUDA compilation artifacts
+*.fatbin
+*.cubin
+*.ptx
+*.sass
+*.compute_*
+*.i
+*.ii
+*.gpu
+*.cudafe*
+*.stub.c
+link.stub
+cuda-gdb-*
+
+# ====================
+# PYTHON ENVIRONMENTS & CACHE
+# ====================
+# Virtual environments
+venv/
+env/
+ENV/
+.env
+.venv
+
+# Python cache and artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyw
+.Python
+*.egg
+*.egg-info/
+pip-log.txt
+pip-wheel-metadata/
+.installed.cfg
+*.manifest
+MANIFEST
+
+# Package managers
+Pipfile.lock
+poetry.lock
+conda-meta/
+.conda/
+
+# ====================
+# TERRAFORM & INFRASTRUCTURE
+# ====================
+deployment/terraform/.terraform/
+deployment/terraform/.terraform.lock.hcl
+deployment/terraform/terraform.tfstate*
+deployment/terraform/*.tfvars
+deployment/terraform/.terraformrc
+deployment/terraform/terraform.rc
+
+# ====================
+# LARGE ARCHIVES & PACKAGES
+# ====================
+*.tar.gz
+*.zip
+*.7z
+*.rar
+predis_funding_ready.tar.gz
+
+# ====================
+# IDE & EDITOR FILES
+# ====================
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+
+# ====================
+# OS GENERATED FILES
+# ====================
+# macOS
+.DS_Store
+.DS_Store?
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*.lnk
+
+# Linux
+*~
+
+# ====================
+# TEST ARTIFACTS & COVERAGE
+# ====================
 *.gcov
 *.gcda
 *.gcno
@@ -115,7 +185,9 @@ test-results/
 *.py,cover
 .hypothesis/
 
-# Profiling and debugging
+# ====================
+# PROFILING & DEBUGGING
+# ====================
 *.prof
 *.trace
 *.perf
@@ -124,10 +196,6 @@ massif.out.*
 vgcore.*
 core.*
 
-# Log files
-*.log
-logs/
-
 # GPU profiling artifacts
 *.nvprof
 *.nvvp
@@ -135,6 +203,28 @@ logs/
 *.qdstrm
 profile_*.txt
 
+# ====================
+# LOGS & TEMPORARY FILES
+# ====================
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+*.temp
+*.bak
+*.backup
+*.orig
+*.rej
+
+# Runtime artifacts
+*.pid
+*.sock
+*.port
+
+# ====================
+# MODEL FILES & DATA
+# ====================
 # Model files (large binaries)
 *.pth
 *.pkl
@@ -149,50 +239,44 @@ models/*.safetensors
 # Data files and datasets
 data/models/
 data/benchmarks/
-data/test_data/
 data/cache/
 datasets/
 *.parquet
 *.arrow
 
-# Docker artifacts
-.volumes/
-docker-compose.override.yml
-.dockerignore
+# ====================
+# RESULTS & OUTPUT FILES
+# ====================
+# Keep benchmark JSON results (IMPORTANT!)
+!benchmark_results/*.json
+!*results*.json
 
-# Package managers
-node_modules/
-.npm
-.yarn/
-Pipfile.lock
-poetry.lock
-conda-meta/
-.conda/
+# Exclude large output files
+*.bin
+*.dump
 
-# OS generated files
-.DS_Store?
-ehthumbs.db
-Icon?
-Thumbs.db
-*.lnk
-
-# Temporary and backup files
-tmp/
-temp/
-*.tmp
-*.temp
-*.bak
-*.backup
-*~
-*.orig
-*.rej
-
+# ====================
+# DOCUMENTATION & JUPYTER
+# ====================
 # Documentation build
 docs/_build/
 site/
 .readthedocs.yml
 
-# Configuration files with secrets
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# ====================
+# DOCKER & CONTAINERS
+# ====================
+.volumes/
+docker-compose.override.yml
+.dockerignore
+
+# ====================
+# CONFIGURATION & SECRETS
+# ====================
 .env.local
 .env.production
 config/local.yaml
@@ -202,20 +286,9 @@ config/secrets.yaml
 *.p12
 *.crt
 
-# Runtime artifacts
-*.pid
-*.sock
-*.port
-
-# Jupyter Notebook
-.ipynb_checkpoints
-*.ipynb
-
-# CUDA specific
-cuda-gdb-*
-*.i
-*.ii
-*.gpu
-*.cudafe*
-*.stub.c
-link.stub
+# ====================
+# NODE.JS (if used)
+# ====================
+node_modules/
+.npm
+.yarn/
