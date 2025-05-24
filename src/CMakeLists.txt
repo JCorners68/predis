@@ -110,3 +110,14 @@ set_target_properties(predis_server arch_validation_test ds_metrics_benchmark
     PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 )
+
+# Epic 4: MLOps and Enterprise features
+if(MLOPS_ENABLED)
+    add_subdirectory(mlops)
+    add_subdirectory(enterprise)
+    
+    target_link_libraries(predis_core
+        mlops
+        enterprise
+    )
+endif()

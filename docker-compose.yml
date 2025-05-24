@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  predis-dev:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dev
+    container_name: predis-dev
+    volumes:
+      - .:/workspace
+      - predis-cache:/home/developer/.cache
+    working_dir: /workspace
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    stdin_open: true
+    tty: true
+    networks:
+      - predis-network
+
+  redis-benchmark:
+    image: redis:7-alpine
+    container_name: predis-redis-benchmark
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+    networks:
+      - predis-network
+    ports:
+      - "6379:6379"
+
+volumes:
+  predis-cache:
+  redis-data:
+
+networks:
+  predis-network:
+    driver: bridge

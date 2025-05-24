@@ -1,0 +1,44 @@
+{
+  "timestamp": 1748073711,
+  "gpu": "Tesla T4",
+  "table_size": 10485760,
+  "num_operations": 1000000,
+  "results": {
+    "gpu": [
+      {
+        "operation": "PUT",
+        "ops_per_second": 345418375.00,
+        "latency_us": 0.003,
+        "success_rate": 200.0
+      },
+      {
+        "operation": "GET",
+        "ops_per_second": 1297326375.00,
+        "latency_us": 0.001,
+        "success_rate": 51.5
+      },
+      {
+        "operation": "DELETE",
+        "ops_per_second": 1574624625.00,
+        "latency_us": 0.001,
+        "success_rate": 24.9
+      }
+    ],
+    "cpu": [
+      {
+        "operation": "CPU_PUT",
+        "ops_per_second": 5076090.60,
+        "latency_us": 0.197
+      },
+      {
+        "operation": "CPU_GET",
+        "ops_per_second": 12955213.83,
+        "latency_us": 0.077
+      }
+    ]
+  },
+  "speedup": {
+    "put": 68.0,
+    "get": 100.1
+  }
+}

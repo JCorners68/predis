@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-05-24T06:02:58Z",
+  "account_id": "720326606276",
+  "region": "us-east-1",
+  "deployment_ready": false,
+  "checked_quotas": [
+    "All G and VT Spot Instance Requests",
+    "Running On-Demand G instances", 
+    "Running On-Demand Standard instances",
+    "General Purpose SSD (gp3) volume storage",
+    "Security groups per VPC",
+    "VPCs per Region",
+    "EC2-VPC Elastic IPs"
+  ]
+}

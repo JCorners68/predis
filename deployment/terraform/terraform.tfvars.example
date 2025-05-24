@@ -1,0 +1,16 @@
+# Create terraform.tfvars.example
+cat > terraform.tfvars.example << 'EOF'
+# Copy this file to terraform.tfvars and fill in your values
+
+# AWS region (must match where you have G4DN quota)
+region = "us-east-1"
+
+# Your EC2 key pair name (must exist in the region)
+key_name = "your-key-name"
+
+# Instance type (g4dn.xlarge uses your 4 vCPU quota)
+instance_type = "g4dn.xlarge"
+
+# Project name for resource tagging
+project_name = "predis"
+EOF
