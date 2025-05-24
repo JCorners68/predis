@@ -1,0 +1,87 @@
+# Epic 4 Production Dockerfile with GPU support
+FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
+
+# Set environment variables
+ENV DEBIAN_FRONTEND=noninteractive
+ENV CUDA_HOME=/usr/local/cuda
+ENV PATH=${CUDA_HOME}/bin:${PATH}
+ENV LD_LIBRARY_PATH=${CUDA_HOME}/lib64:${LD_LIBRARY_PATH}
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
+    git \
+    wget \
+    python3-pip \
+    python3-dev \
+    libboost-all-dev \
+    libjemalloc-dev \
+    libssl-dev \
+    pkg-config \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies for MLOps
+RUN pip3 install --upgrade pip && \
+    pip3 install \
+    mlflow==2.9.2 \
+    kubeflow==1.8.0 \
+    wandb==0.16.2 \
+    prometheus-client==0.19.0 \
+    datadog==0.47.0 \
+    kubernetes==29.0.0 \
+    docker==7.0.0 \
+    boto3==1.34.0 \
+    google-cloud-storage==2.10.0 \
+    azure-storage-blob==12.19.0 \
+    numpy==1.24.3 \
+    pandas==2.1.4 \
+    scikit-learn==1.3.2 \
+    scipy==1.11.4
+
+# Create app directory
+WORKDIR /opt/predis
+
+# Copy source code
+COPY src/ ./src/
+COPY CMakeLists.txt ./
+COPY deployment/ ./deployment/
+
+# Build Predis
+RUN mkdir build && cd build && \
+    cmake -DCMAKE_BUILD_TYPE=Release \
+          -DGPU_ENABLED=ON \
+          -DMLOPS_ENABLED=ON \
+          .. && \
+    make -j$(nproc)
+
+# Create directories for runtime
+RUN mkdir -p /var/lib/predis/{data,logs,ml_data,models} && \
+    mkdir -p /etc/predis
+
+# Copy configuration templates
+COPY deployment/config/predis.conf.template /etc/predis/
+COPY deployment/config/mlops.yaml /etc/predis/
+
+# Install monitoring agents
+RUN wget -O /tmp/node_exporter.tar.gz \
+    https://github.com/prometheus/node_exporter/releases/download/v1.7.0/node_exporter-1.7.0.linux-amd64.tar.gz && \
+    tar -xzf /tmp/node_exporter.tar.gz -C /usr/local/bin --strip-components=1 && \
+    rm /tmp/node_exporter.tar.gz
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD ["/opt/predis/scripts/health_check.sh"]
+
+# Expose ports
+EXPOSE 6379   # Redis-compatible API
+EXPOSE 8080   # HTTP API
+EXPOSE 9090   # Metrics endpoint
+EXPOSE 8888   # Dashboard
+
+# Volume mounts
+VOLUME ["/var/lib/predis/data", "/var/lib/predis/logs", "/var/lib/predis/models"]
+
+# Entry point
+ENTRYPOINT ["/opt/predis/scripts/docker_entrypoint.sh"]
+CMD ["--config", "/etc/predis/predis.conf"]

@@ -1,0 +1,246 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Predis GPU-Accelerated Cache - One-Click Deployment'
+
+Parameters:
+  InstanceType:
+    Type: String
+    Default: p3.2xlarge
+    AllowedValues:
+      - p3.2xlarge    # 1 x V100 GPU
+      - p3.8xlarge    # 4 x V100 GPU
+      - g4dn.xlarge   # 1 x T4 GPU (cost-effective)
+      - g4dn.2xlarge  # 1 x T4 GPU (more CPU)
+    Description: EC2 instance type with GPU support
+
+  CacheMemoryGB:
+    Type: Number
+    Default: 8
+    MinValue: 4
+    MaxValue: 32
+    Description: GPU memory allocation for cache (GB)
+
+  MLOpsEnabled:
+    Type: String
+    Default: 'true'
+    AllowedValues:
+      - 'true'
+      - 'false'
+    Description: Enable MLOps pipeline for continuous learning
+
+  MonitoringIntegration:
+    Type: String
+    Default: CloudWatch
+    AllowedValues:
+      - CloudWatch
+      - DataDog
+      - NewRelic
+      - Prometheus
+    Description: Monitoring platform integration
+
+  CustomerID:
+    Type: String
+    Description: Unique customer identifier for tracking
+    MinLength: 3
+    MaxLength: 50
+
+Mappings:
+  RegionMap:
+    us-east-1:
+      AMI: ami-0abcdef1234567890  # Custom Predis AMI with GPU drivers
+    us-west-2:
+      AMI: ami-0bcdef1234567890
+    eu-west-1:
+      AMI: ami-0cdef1234567890
+
+Resources:
+  PredisSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for Predis cache
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 6379
+          ToPort: 6379
+          CidrIp: 10.0.0.0/8  # Internal VPC only
+        - IpProtocol: tcp
+          FromPort: 8080
+          ToPort: 8080
+          CidrIp: 10.0.0.0/8
+        - IpProtocol: tcp
+          FromPort: 9090
+          ToPort: 9090
+          CidrIp: 10.0.0.0/8
+        - IpProtocol: tcp
+          FromPort: 8888
+          ToPort: 8888
+          CidrIp: 10.0.0.0/8
+
+  PredisInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref InstanceType
+      ImageId: !FindInMap [RegionMap, !Ref 'AWS::Region', AMI]
+      SecurityGroupIds:
+        - !Ref PredisSecurityGroup
+      IamInstanceProfile: !Ref PredisInstanceProfile
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeSize: 100
+            VolumeType: gp3
+            Iops: 3000
+        - DeviceName: /dev/sdb
+          Ebs:
+            VolumeSize: 500
+            VolumeType: gp3
+            Iops: 10000
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          set -e
+          
+          # Configure Predis
+          cat > /etc/predis/predis.conf <<EOF
+          cache_memory_gb: ${CacheMemoryGB}
+          mlops_enabled: ${MLOpsEnabled}
+          monitoring_integration: ${MonitoringIntegration}
+          customer_id: ${CustomerID}
+          aws_region: ${AWS::Region}
+          EOF
+          
+          # Start Predis service
+          systemctl enable predis
+          systemctl start predis
+          
+          # Configure monitoring
+          if [ "${MonitoringIntegration}" == "CloudWatch" ]; then
+            /opt/predis/scripts/setup_cloudwatch.sh
+          fi
+          
+          # Send deployment notification
+          aws sns publish \
+            --topic-arn ${DeploymentNotificationTopic} \
+            --message "Predis deployed successfully for customer ${CustomerID}"
+
+      Tags:
+        - Key: Name
+          Value: !Sub 'Predis-${CustomerID}'
+        - Key: Customer
+          Value: !Ref CustomerID
+        - Key: Product
+          Value: Predis
+
+  PredisRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy
+      Policies:
+        - PolicyName: PredisPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                Resource: !Sub '${ModelStorageBucket.Arn}/*'
+              - Effect: Allow
+                Action:
+                  - sns:Publish
+                Resource: !Ref DeploymentNotificationTopic
+
+  PredisInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref PredisRole
+
+  ModelStorageBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub 'predis-models-${CustomerID}-${AWS::AccountId}'
+      VersioningConfiguration:
+        Status: Enabled
+      LifecycleConfiguration:
+        Rules:
+          - Id: DeleteOldModels
+            Status: Enabled
+            ExpirationInDays: 90
+            NoncurrentVersionExpirationInDays: 30
+
+  DeploymentNotificationTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: Predis Deployment Notifications
+      Subscription:
+        - Endpoint: ops@predis.ai
+          Protocol: email
+
+  PredisMetricsAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub 'Predis-HighLatency-${CustomerID}'
+      AlarmDescription: Alert when cache latency exceeds threshold
+      MetricName: CacheLatency
+      Namespace: Predis
+      Statistic: Average
+      Period: 300
+      EvaluationPeriods: 2
+      Threshold: 10
+      ComparisonOperator: GreaterThanThreshold
+      AlarmActions:
+        - !Ref DeploymentNotificationTopic
+
+  PredisDashboard:
+    Type: AWS::CloudWatch::Dashboard
+    Properties:
+      DashboardName: !Sub 'Predis-${CustomerID}'
+      DashboardBody: !Sub |
+        {
+          "widgets": [
+            {
+              "type": "metric",
+              "properties": {
+                "metrics": [
+                  ["Predis", "CacheHitRate", {"stat": "Average"}],
+                  [".", "CacheLatency", {"stat": "Average"}],
+                  [".", "GPUUtilization", {"stat": "Average"}],
+                  [".", "MLInferenceTime", {"stat": "Average"}]
+                ],
+                "period": 300,
+                "stat": "Average",
+                "region": "${AWS::Region}",
+                "title": "Predis Performance Metrics"
+              }
+            }
+          ]
+        }
+
+Outputs:
+  PredisEndpoint:
+    Description: Redis-compatible endpoint
+    Value: !Sub '${PredisInstance.PrivateIp}:6379'
+    
+  DashboardURL:
+    Description: Web dashboard URL
+    Value: !Sub 'http://${PredisInstance.PrivateIp}:8888'
+    
+  MetricsEndpoint:
+    Description: Prometheus metrics endpoint
+    Value: !Sub 'http://${PredisInstance.PrivateIp}:9090/metrics'
+    
+  ModelBucket:
+    Description: S3 bucket for ML models
+    Value: !Ref ModelStorageBucket
+    
+  CustomerID:
+    Description: Customer identifier
+    Value: !Ref CustomerID
